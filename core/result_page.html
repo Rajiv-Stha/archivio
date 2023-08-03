@@ -1,0 +1,1103 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#000000">
+    <title>LineeBus - ovunque sei, orari e biglietti autobus</title>
+    <meta name="description" content="Mobilekit HTML Mobile UI Kit">
+    <meta name="keywords" content="bootstrap 5, mobile template, cordova, phonegap, mobile, html" />
+    <link rel="icon" type="image/png" href="assets/img/favicon.png" sizes="32x32">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/icon/192x192.png">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="manifest" href="__manifest.json">
+
+</head>
+
+<body>
+
+    <!-- loader -->
+    <div id="loader">
+        <div class="spinner-border text-primary" role="status"></div>
+    </div>
+    <!-- * loader -->
+
+
+    <!-- Header -->
+    <div class="appHeader" style="background: linear-gradient(to right, #1A5AA2, #33CC66);">
+        <div class="left">
+            <!--a href="#" class="headerButton text-white" data-bs-toggle="offcanvas" data-bs-target="#sidebarPanel">
+                <ion-icon name="menu-outline"></ion-icon>
+            </a-->
+            <a href="index.php" class="headerButton text-white ps-2">
+                <ion-icon name="chevron-back-outline"></ion-icon>
+            </a>
+        </div>
+
+        <div class="pageTitle text-white">
+            Risultati
+        </div>
+
+        <div class="right">
+            <a href="javascript:;" data-bs-toggle="offcanvas" data-bs-target="#actionSheetContentFiltri" class="headerButton text-white">
+                <ion-icon name="filter"></ion-icon>
+            </a>
+            <a href="index.php" class="headerButton text-white ps-2">
+                <ion-icon name="search"></ion-icon>
+            </a>
+        </div>
+    </div>
+
+    
+
+    <!-- Search Component -->
+    <div id="search" class="appHeader">
+        <form class="search-form">
+            <div class="form-group searchbox">
+                <input type="text" class="form-control" placeholder="Search...">
+                <i class="input-icon">
+                    <ion-icon name="search-outline"></ion-icon>
+                </i>
+                <a href="javascript:;" class="ml-1 close toggle-searchbox">
+                    <ion-icon name="close-circle"></ion-icon>
+                </a>
+            </div>
+        </form>
+    </div>
+    <!-- * Search Component -->
+
+    <!-- * Header -->
+
+
+    <!-- App Capsule -->
+    <div id="appCapsule">
+
+        <div class="header-large-title pt-2" style="text-align: center; _background: linear-gradient(to right, #dbefff, #dbeddc);">
+            
+            <h3>
+                <small>Salerno (Staz... - Milano (Lamp...</small>
+            </h3>
+
+            <ul class="nav nav-tabs capsuled" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link " data-bs-toggle="tab" href="#example1b" role="tab">
+                        
+                        23/01/23
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="tab" href="#example2b" role="tab">
+                        
+                        24/01/23
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="tab" href="#example3b" role="tab">
+                        
+                        25/01/23
+                    </a>
+                </li>
+            </ul>
+
+
+        </div>
+
+
+        <div class="section mt-2 mb-2">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- 
+                    <div class="timeline timed">
+                        <div class="item">
+                            <span class="time" style="font-size: 16px;">8:00</span>
+                            <div class="dot" style="background: #33CC66;"></div>
+                            <div class="content">
+                                <h4 class="title" style="font-size: 18px;">Salerno</h4>
+                                <div class="text">Piazza Concordia</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="time" style="font-size: 16px;">12:30</span>
+                            <div class="dot" style="background: #1A5AA2;"></div>
+                            <div class="content">
+                                <h4 class="title" style="font-size: 18px;">Roma</h4>
+                                <div class="text">Stazione Termini</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                     timeline -->
+
+
+                    <div class="row mb-2">
+                        <div class="col-4">
+                            <img src="lineebus_logo.png" height="20px">  
+                        </div>
+                        <div class="col-4">
+                            <img src="caputoLogo.jpeg" height="20px" style="margin-left: 15px;">  
+                        </div>
+                        <div class="col-4 float-right">
+                            <span class="cambio_style">Cambio</span>
+                            <br>
+                            <span class="posti_label"> Posti: 25 +</span>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-5 text-center">
+                            <span style="font-size: 17px; font-weight: 800;">
+                                08:30
+                            </span>
+                            <br>
+                            <span style="font-size: 15px;">
+                                <b>Salerno</b><br>(Piazza Concordia)
+                            </span>
+
+                            
+                        </div>
+
+                        <div class="col-2 text-center" style="overflow-x: scroll;">
+                            <span class="text-center" style="font-size: 10px;">
+                                <span class="text-center" style="font-size: 8px;"></span> 
+                                    04h 00m 
+                                <span class="text-center" style="font-size: 8px;"></span>
+                            </span>
+                            
+                        </div>
+
+                        <div class="col-5 text-center">
+                            <span style="font-size: 17px; font-weight: 800;">
+                                12:30 +
+                            </span>
+                            <br>
+                            <span style="font-size: 15px;">
+                                <b>Milano</b><br>(Stazione Centrale)
+                            </span>
+                        </div>
+
+                        
+                    </div>
+
+
+                    <div class="row mt-3">
+
+                        <div class="col-6">
+                            <!--button type="submit" name="submit_edit" class="btn btn-outline-dark shadowed me-1 mb-1" data-bs-toggle="modal" data-bs-target="#ModalListviewDettagliViaggio" >Dettagli</button-->
+                        <button type="button" class="btn btn-outline-secondary rounded shadowed " data-bs-toggle="modal" data-bs-target="#ModalListviewDettagliViaggio">
+                            <span class="text-secondary" style="font-weight: 600; color: gray;">Dettagli</span>                            
+                        </button>
+                        </div>
+
+                        <div class="col-6 text-end">
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#ModalListviewDettagliViaggio">
+                                <span style="font-size: 25px; font-weight: 800; color: #000000;">35 €</span>
+                                <br>
+                                <span style="font-size: 12px; font-weight: 400; color: #888888;"> Acquista</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+                <!-- * Card Body -->
+            </div>
+            <!-- * Card -->
+        </div>
+
+
+
+
+
+
+
+
+        <div class="section mt-2 mb-2">
+            <div class="card">
+                <div class="card-body">
+
+                    <!-- 
+                    <div class="timeline timed">
+                        <div class="item">
+                            <span class="time" style="font-size: 16px;">8:00</span>
+                            <div class="dot" style="background: #33CC66;"></div>
+                            <div class="content">
+                                <h4 class="title" style="font-size: 18px;">Salerno</h4>
+                                <div class="text">Piazza Concordia</div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <span class="time" style="font-size: 16px;">12:30</span>
+                            <div class="dot" style="background: #1A5AA2;"></div>
+                            <div class="content">
+                                <h4 class="title" style="font-size: 18px;">Roma</h4>
+                                <div class="text">Stazione Termini</div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                     timeline -->
+
+
+                    <div class="row mb-2">
+                        <div class="col-9">
+                            <img src="logo_moretti_bianco.png" height="20px">  
+                        </div>
+                        <div class="col-3 float-right">
+                            <span class="diretto_style">Diretto</span>
+                            <br>
+                            <span class="posti_label"> Posti: 25 +</span>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-5 text-center">
+                            <span style="font-size: 17px; font-weight: 800;">
+                                02:10
+                            </span>
+                            <br>
+                            <span style="font-size: 15px;">
+                                <b>Salerno</b><br>(Piazza Concordia)
+                            </span>
+
+                            
+                        </div>
+
+                        <div class="col-2 text-center">
+                            <p class="text-center" style="font-size: 10px;">
+                                <span class="text-center" style="font-size: 8px;"></span> 
+                                    16h 25m 
+                                <span class="text-center" style="font-size: 8px;"></span>
+                            </p>
+                        </div>
+
+                        <div class="col-5 text-center">
+                            <span style="font-size: 17px; font-weight: 800;">
+                                16:30 +
+                            </span>
+                            <br>
+                            <span style="font-size: 15px;">
+                                <b>Milano</b><br>(Stazione Lampugano)
+                            </span>
+                        </div>
+
+                        
+                    </div>
+
+
+                    <div class="row mt-3">
+
+                        <div class="col-6">
+                            <button type="button" class="btn btn-outline-secondary rounded shadowed " data-bs-toggle="modal" data-bs-target="#ModalListviewDettagliViaggioDiretto">
+                                <span class="text-secondary" style="font-weight: 600; color: gray;">Dettagli</span>                           
+                            </button>
+                        </div>
+
+                        <div class="col-6 text-end">
+                            <a type="button" data-bs-toggle="modal" data-bs-target="#ModalListviewDettagliViaggioDiretto">
+                                <span style="font-size: 25px; font-weight: 800; color: #000000;">79 €</span>
+                                <br>
+                                <span style="font-size: 12px; font-weight: 400; color: #888888;"> Acquista</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+
+
+                </div>
+                <!-- * Card Body -->
+            </div>
+            <!-- * Card -->
+        </div>
+               
+
+
+        
+
+        <!-- app footer -->
+       
+        <!-- * app footer -->
+
+    </div>
+    <!-- * App Capsule -->
+
+
+    <!-- App Bottom Menu -->
+
+    <!-- * App Bottom Menu -->
+
+<!-- ----------------------------------------------------------------------- -->
+<!-- -------------------------------- MODAL -------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
+
+
+
+
+    <!-- From/To Modal -->
+
+    <!-- Modal Listview -->
+    <div class="modal fade modalbox" id="ModalListviewDettagliViaggio" data-bs-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h3 class="modal-title text-white ">Dettagli Viaggio</h3>
+                    <a href="#" data-bs-dismiss="modal" class="text-white">Chiudi</a>
+                </div>
+                <div class="modal-body p-0">
+                    
+                    <div style="border-bottom: 1px solid #E1E1E1;">
+                
+                        <div class="card-body">
+
+
+                            <div class="row mt-2 mb-2">
+                                <div class="col-4">
+                                    <img src="lineebus_logo.png" height="28px">  
+                                </div>
+                                <div class="col-5">
+                                    <img src="caputoLogo.jpeg" height="28px" style="margin-left: 15px;">  
+                                </div>
+                                <div class="col-3 float-right">
+                                    <span class="cambio_style">Cambio</span>
+                                    <br>
+                                    <span class="posti_label"> Posti: 25 +</span>
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-5 text-center">
+                                    <span style="font-size: 17px; font-weight: 800;">
+                                        08:30
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 15px;">
+                                        <b>Salerno</b><br>(Piazza Concordia)
+                                    </span>
+
+                                    
+                                </div>
+
+                                <div class="col-2 text-center">
+                                    <p class="text-center" style="font-size: 12px;">
+                                        <span class="text-center" style="font-size: 9px;">-</span> 
+                                            04h 00m 
+                                        <span class="text-center" style="font-size: 9px;">-</span>
+                                    </p>
+                                </div>
+
+                                <div class="col-5 text-center">
+                                    <span style="font-size: 17px; font-weight: 800;">
+                                        12:30 +
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 15px;">
+                                        <b>Milano</b><br>(Stazione Centrale)
+                                    </span>
+                                </div>
+
+                                
+                            </div>
+
+
+                        </div>
+                        <!-- * Card Body -->
+                    </div>
+                    <!-- * Card -->
+
+
+                    
+                    <!-- timeline -->
+                        <div class="timeline timed">
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">8:00</span>
+                                <div class="dot" style="background: #33CC66;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Salerno</h4>
+                                    <div class="text">Piazza Concordia</div>
+                                    
+                                    <span class="float-right me-2">
+                                        <span class="text" style="font-size: 13px;">Azienda 1</span><br>
+                                        <img src="lineebus_logo.png" height="28px" >
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            
+
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">12:30</span>
+                                <div class="dot" style="background: gray;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Roma</h4>
+                                    <div class="text">Stazione Termini</div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <span class="time cambio_label cambio_style" style="font-size: 15px;">Cambio</span>
+                                <div class="dot" style="background: #FF6347; border-radius: 0%;"></div>
+                                    <div class="content">
+                                        <div class="chip chip-media">
+                                            <i class="chip-icon" style="background: #FF6347;">
+                                                <ion-icon name="alarm"></ion-icon>
+                                            </i>
+                                            <span class="chip-label">Tempo di attesa: <b> 06h 40m </b></span>
+                                        </div>
+                                </div>
+                            </div>
+
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">18:20</span>
+                                <div class="dot" style="background: gray;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Roma</h4>
+                                    <div class="text">Stazione Termini</div>
+                                    <span class="float-right me-2">
+                                        <span class="text" style="font-size: 13px; ">Azienda 2</span><br>
+                                        <img src="caputoLogo.jpeg" height="28px" >
+                                    </span>
+                                </div>
+                            </div>
+
+                            
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">12:30 +</span>
+                                <div class="dot" style="background: #1A5AA2;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Milano</h4>
+                                    <div class="text">Stazione Centrale</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- timeline -->
+
+
+                        <!-- Servizi -->
+                        <div class="section full mt-1" style="background: #e5e5e5">
+
+                            <div class="section-title">
+                                Servizi
+                            </div>
+
+                            <div class="wide-block pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-3">
+                                        LineeBus:
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="chip">
+                                            <span class="chip-label">Aria Condizionata</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Sedili reclinabili</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Prese USB</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">WC</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="wide-block pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-3">
+                                        Caputo:
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="chip">
+                                            <span class="chip-label">Aria Condizionata</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Sedili reclinabili</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Prese USB</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">WC</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Microfono</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Vetri Scuri</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- * Servizi -->
+
+                        
+
+                        <!-- Informazioni -->
+                        <div class="section full mt-1" style="background: #e5e5e5">
+
+                            <div class="section-title">
+                                Informazioni
+                            </div>
+
+                            <div class="wide-block pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <small class="">
+                                        <h3>Soluzione con Cambio.</h3>
+                                        Questa soluzione prevede un cambio tra due Autobus diversi. <br>
+                                        Basterà mostrare il biglietto della Tratta 1 anche al Vettore della Tratta 2.
+ 
+                                        <br>
+                                        Accertati di avere tutto il tempo per effettuare il cambio in tranquillità e sicurezza. <br>Ti ricordiamo inoltre di leggere le condizioni di viaggio dei diversi Vettori.<a href="#">(Maggiori informaizoni qui)</a><br>
+                                        </small>
+
+
+
+                                    </div>
+                                    
+                                </div>
+
+
+
+                            </div>
+
+                            
+                        </div>
+                        <!-- * Informazioni -->
+
+
+                
+                </div>
+
+                <div class="p-2">
+                    <button type="submit" name="submit_edit" class="btn btn-lg btn-success" style="width: 100%;">
+                        <span style="font-weight: 600;">Acquista 35€</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- * Modal Listview -->
+
+
+
+
+    <!-- Content Action Sheet Filtri -->
+    <div class="offcanvas offcanvas-bottom action-sheet" tabindex="-1" id="actionSheetContentFiltri">
+        <div class="offcanvas-body">
+            <div class="action-sheet-content">
+                <div class="offcanvas-header text-center">
+                    <h3>Filtra per</h3>
+                 </div>
+                <div class="modal-body p-0 m-0">
+                    <div class="action-sheet-content">
+                        
+                        <div class="input-list">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioList" id="radioList1">
+                                <label class="form-check-label" for="radioList1">Orario di Partenza</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioList" id="radioList2">
+                                <label class="form-check-label" for="radioList2">Tratta più breve</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="radioList" id="radioList3">
+                                <label class="form-check-label" for="radioList3">Tratte senza cambi</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="radioList" id="radioList4">
+                                <label class="form-check-label" for="radioList4">Arriva lo stesso giorno</label>
+                            </div>
+                        </div>
+
+                        <a href="#" class="btn btn-primary btn-block btn-lg" data-dismiss="modal">Conferma</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- * Content Action Sheet -->
+
+
+
+
+
+    <!-- ----------------------------------------------------------------------- -->
+<!-- -------------------------------- MODAL -------------------------------- -->
+<!-- ----------------------------------------------------------------------- -->
+
+
+
+
+    <!-- From/To Modal -->
+
+    <!-- Modal Listview -->
+    <div class="modal fade modalbox" id="ModalListviewDettagliViaggioDiretto" data-bs-backdrop="static" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h3 class="modal-title text-white ">Dettagli Viaggio</h3>
+                    <a href="#" data-bs-dismiss="modal" class="text-white">Chiudi</a>
+                </div>
+                <div class="modal-body p-0">
+                    
+                    <div style="border-bottom: 1px solid #E1E1E1;">
+                
+                        <div class="card-body">
+
+
+                            <div class="row mt-2 mb-2">
+                                <div class="col-9">
+                                    <img src="logo_moretti_bianco.png" height="28px">  
+                                </div>
+                                <div class="col-3 float-right">
+                                    <span class="diretto_style">Diretto</span>
+                                    <br>
+                                    <span class="posti_label"> Posti: 25 +</span>
+                                </div>
+                                
+                            </div>
+
+
+                            <div class="row">
+
+                                <div class="col-5 text-center">
+                                    <span style="font-size: 17px; font-weight: 800;">
+                                        02:10
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 15px;">
+                                        <b>Salerno</b><br>(Piazza Concordia)
+                                    </span>
+
+                                    
+                                </div>
+
+                                <div class="col-2 text-center">
+                                    <p class="text-center" style="font-size: 10px;">
+                                        <span class="text-center" style="font-size: 9px;"></span> 
+                                            16h 25m 
+                                        <span class="text-center" style="font-size: 9px;"></span>
+                                    </p>
+                                </div>
+
+                                <div class="col-5 text-center">
+                                    <span style="font-size: 17px; font-weight: 800;">
+                                        16:30 +
+                                    </span>
+                                    <br>
+                                    <span style="font-size: 15px;">
+                                        <b>Milano</b><br>(Stazione Lampugnano)
+                                    </span>
+                                </div>
+
+                                
+                            </div>
+
+
+                        </div>
+                        <!-- * Card Body -->
+                    </div>
+                    <!-- * Card -->
+
+
+                    
+                    <!-- timeline -->
+                        <div class="timeline timed">
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">02:10</span>
+                                <div class="dot" style="background: #33CC66;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Salerno</h4>
+                                    <div class="text">Piazza Concordia</div>
+                                    
+                                    <span class="float-right me-2">
+                                        <span class="text" style="font-size: 13px;">Azienda</span><br>
+                                        <img src="logo_moretti_bianco.png" height="28px" >
+                                    </span>
+                                </div>
+
+                            </div>
+
+                        
+                            <div class="item">
+                                    <div class="content">
+                                        <div class="dot" style="border-radius: 0%;"></div>
+                                        <div class="chip">
+                                            <span class="chip-label">Durata: <b> 16h 25m </b></span>
+                                        </div>
+                                </div>
+                            </div>
+
+                            
+                            <div class="item">
+                                <span class="time" style="font-size: 16px;">16:30 +</span>
+                                <div class="dot" style="background: #1A5AA2;"></div>
+                                <div class="content">
+                                    <h4 class="title" style="font-size: 18px;">Milano</h4>
+                                    <div class="text">Stazione Centrale</div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- timeline -->
+
+
+                        <!-- Servizi -->
+                        <div class="section full mt-1" style="background: #e5e5e5">
+
+                            <div class="section-title">
+                                Servizi
+                            </div>
+
+                            <div class="wide-block pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-3">
+                                        Moretti Bus:
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="chip">
+                                            <span class="chip-label">Aria Condizionata</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Sedili reclinabili</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">Prese USB</span>
+                                        </div>
+
+                                        <div class="chip">
+                                            <span class="chip-label">WC</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                        <!-- * Servizi -->
+
+                        
+
+                        <!-- Informazioni -->
+                        <div class="section full mt-1" style="background: #e5e5e5">
+
+                            <div class="section-title">
+                                Informazioni
+                            </div>
+
+                            <div class="wide-block pt-2 pb-2">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <small class="">
+                                        <h3>Soluzione Diretta.</h3>
+                                        Questa soluzione non prevede nessun cambio. <br> 
+                                        <br>
+                                        Ti ricordiamo di leggere le condizioni di viaggio del Vettore.<a href="#">(Maggiori informaizoni qui)</a><br>
+                                        </small>
+
+
+
+                                    </div>
+                                    
+                                </div>
+
+
+
+                            </div>
+
+                            
+                        </div>
+                        <!-- * Informazioni -->
+
+
+                
+                </div>
+
+                <div class="p-2">
+                    <button type="submit" name="submit_edit" class="btn btn-lg btn-success" style="width: 100%;">
+                        <span style="font-weight: 600;">Acquista 35€</span>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- * Modal Listview Diretto -->
+
+
+
+
+    <!-- * From Modal -->
+
+
+     <!-- App Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="sidebarPanel">
+        <div class="offcanvas-body">
+            <!-- profile box -->
+            <div class="profileBox">
+                <div class="image-wrapper">
+                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="image" class="imaged rounded">
+                </div>
+                <div class="in">
+                    <strong>Julian Gruber</strong>
+                    <div class="text-muted">
+                        <ion-icon name="location"></ion-icon>
+                        California
+                    </div>
+                </div>
+                <a href="#" class="close-sidebar-button" data-bs-dismiss="offcanvas">
+                    <ion-icon name="close"></ion-icon>
+                </a>
+            </div>
+            <!-- * profile box -->
+
+            <ul class="listview flush transparent no-line image-listview mt-2">
+                <li>
+                    <a href="index.html" class="item">
+                        <div class="icon-box bg-primary">
+                            <ion-icon name="home-outline"></ion-icon>
+                        </div>
+                        <div class="in">
+                            Discover
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-components.html" class="item">
+                        <div class="icon-box bg-primary">
+                            <ion-icon name="cube-outline"></ion-icon>
+                        </div>
+                        <div class="in">
+                            Components
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="app-pages.html" class="item">
+                        <div class="icon-box bg-primary">
+                            <ion-icon name="layers-outline"></ion-icon>
+                        </div>
+                        <div class="in">
+                            <div>Pages</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <div class="icon-box bg-primary">
+                            <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+                        </div>
+                        <div class="in">
+                            <div>Chat</div>
+                            <span class="badge badge-danger">5</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <div class="item">
+                        <div class="icon-box bg-primary">
+                            <ion-icon name="moon-outline"></ion-icon>
+                        </div>
+                        <div class="in">
+                            <div>Dark Mode</div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input dark-mode-switch" type="checkbox" id="darkmodesidebar">
+                                <label class="form-check-label" for="darkmodesidebar"></label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="listview-title mt-2 mb-1">
+                <span>Friends</span>
+            </div>
+            <ul class="listview image-listview flush transparent no-line">
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <img src="assets/img/sample/avatar/avatar7.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>Sophie Asveld</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <img src="assets/img/sample/avatar/avatar3.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>Sebastian Bennett</div>
+                            <span class="badge badge-danger">6</span>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <img src="assets/img/sample/avatar/avatar10.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>Beth Murphy</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <img src="assets/img/sample/avatar/avatar2.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>Amelia Cabal</div>
+                        </div>
+                    </a>
+                </li>
+                <li>
+                    <a href="page-chat.html" class="item">
+                        <img src="assets/img/sample/avatar/avatar5.jpg" alt="image" class="image">
+                        <div class="in">
+                            <div>Henry Doe</div>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- sidebar buttons -->
+        <div class="sidebar-buttons">
+            <a href="#" class="button">
+                <ion-icon name="person-outline"></ion-icon>
+            </a>
+            <a href="#" class="button">
+                <ion-icon name="archive-outline"></ion-icon>
+            </a>
+            <a href="#" class="button">
+                <ion-icon name="settings-outline"></ion-icon>
+            </a>
+            <a href="#" class="button">
+                <ion-icon name="log-out-outline"></ion-icon>
+            </a>
+        </div>
+        <!-- * sidebar buttons -->
+    </div>
+    <!-- * App Sidebar -->
+
+
+
+    <!-- welcome notification  
+    <div id="notification-welcome" class="notification-box">
+        <div class="notification-dialog android-style">
+            <div class="notification-header">
+                <div class="in">
+                    <img src="assets/img/icon/72x72.png" alt="image" class="imaged w24">
+                    <strong>Mobilekit</strong>
+                    <span>just now</span>
+                </div>
+                <a href="#" class="close-button">
+                    <ion-icon name="close"></ion-icon>
+                </a>
+            </div>
+            <div class="notification-content">
+                <div class="in">
+                    <h3 class="subtitle">Welcome to Mobilekit</h3>
+                    <div class="text">
+                        Mobilekit is a PWA ready Mobile UI Kit Template.
+                        Great way to start your mobile websites and pwa projects.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+     * welcome notification -->
+
+
+    <!-- ///////////// Js Files ////////////////////  -->
+    <!-- Bootstrap -->
+    <script src="assets/js/lib/bootstrap.min.js"></script>
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- Splide -->
+    <script src="assets/js/plugins/splide/splide.min.js"></script>
+    <!-- ProgressBar js -->
+    <script src="assets/js/plugins/progressbar-js/progressbar.min.js"></script>
+    <!-- Base Js File -->
+    <script src="assets/js/base.js"></script>
+
+    <script>
+        // Trigger welcome notification after 5 seconds
+        setTimeout(() => {
+            notification('notification-welcome', 5000);
+        }, 2000);
+    </script>
+
+    <style type="text/css">
+        .float-right{
+            text-align: right!important;
+            float: right!important;
+        }
+
+        .cambio_style{
+            font-size: 15px;
+            font-weight: 800; 
+            color: #FF6347;
+        }
+
+        .diretto_style{
+            font-size: 15px;
+            font-weight: 800;
+            color: #4682B4;
+        }
+
+        .posti_label{
+            font-size: 11px;
+            font-weight: 500;
+            color: #888888;
+        }
+    </style>
+
+    <!-- 
+    <script>
+        $(document).ready(function() {
+            $('#date').bootstrapMaterialDatePicker({
+                time: false,
+                clearButton: true
+            });
+        });
+    </script>
+
+    -->
+
+
+</body>
+
+</html>
