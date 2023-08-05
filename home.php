@@ -4,16 +4,19 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 session_start();
+$userId = "santosh";
 
 
 //login via app
 //session start via app
+
 if (isset($_REQUEST['uid']) && isset($_REQUEST['uc'])) {
   // Cast variables to float 
 
     $_SESSION['valid'] = true;
     $_SESSION['user_id'] = $_REQUEST['uid'];
-
+    $userId = $_SESSION['user_id'];
+    // echo $userId;
            
 }else{
         //header('location: login.php');
@@ -39,6 +42,7 @@ else{
 <?php
     include 'header.php';
 ?>
+<!--  -->
 
 <body>
 
@@ -210,13 +214,7 @@ else{
     ?>
 
    
-    <script>
-        // Trigger welcome notification after 5 seconds
-        setTimeout(() => {
-            //notification('notification-welcome', 5000);
-        }, 2000);
-    </script>
-
+   
     <style type="text/css">
         .float-right{
             text-align: right!important;
@@ -224,23 +222,20 @@ else{
         }
     </style>
 
-    <!-- 
-    <script>
-        $(document).ready(function() {
-            $('#date').bootstrapMaterialDatePicker({
-                time: false,
-                clearButton: true
-            });
-        });
+   <script type="text/javascript">
+    // alert("hello");
+    var userId = <?php echo json_encode($userId); ?>;
+    console.log(userId)
     </script>
-
-    -->
-
 
 </body>
 
 
 <script type="text/javascript">
+    // alert("hello")
+            // console.log('User ID:', userId);
+    const socket = io("http://localhost:8000");
+    // console.log(socket)
             
 var empty_load_gps = '<!-- NoGPSConnection -->'+
 '        <div class="text-center pt-5">'+

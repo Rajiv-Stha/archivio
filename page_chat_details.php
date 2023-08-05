@@ -26,6 +26,11 @@ $result2 = $db->query($sql2);
 
 <!doctype html>
 <html lang="en">
+    <!-- <head>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+
+
+</head> -->
 
 <?php
     include 'header.php';
@@ -196,7 +201,7 @@ $result2 = $db->query($sql2);
         // App sidebar
         include('sidebar/app_sidebar.php');
 
-        include("./connection.php")
+        // include("./connection.php")
     ?>
 
      <?php
@@ -206,6 +211,9 @@ $result2 = $db->query($sql2);
 
 
     <script>
+
+          const socket = io();
+          console.log("socket")
 
     document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -249,7 +257,7 @@ $result2 = $db->query($sql2);
 
 
 
-    </script>
+    </>
 
 </body>
 
