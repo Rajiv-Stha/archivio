@@ -1,10 +1,19 @@
 <?php  
+session_start();
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-session_start();
-$userId = "santosh";
+echo $_SESSION["user_id"];
+
+// echo $_SESSION["username"];
+
+$userId = null;
+
+// how can i get the user id  logged in user id
+
+// 
 
 
 //login via app
@@ -13,12 +22,17 @@ $userId = "santosh";
 if (isset($_REQUEST['uid']) && isset($_REQUEST['uc'])) {
   // Cast variables to float 
 
+
+    // but 
+
     $_SESSION['valid'] = true;
     $_SESSION['user_id'] = $_REQUEST['uid'];
     $userId = $_SESSION['user_id'];
     // echo $userId;
            
 }else{
+
+
         //header('location: login.php');
 
 }
@@ -224,18 +238,34 @@ else{
 
    <script type="text/javascript">
     // alert("hello");
-    var userId = <?php echo json_encode($userId); ?>;
-    console.log(userId)
+    var userId = <?php echo  $_SESSION['user_id']; ?>;
+    var username =  '<?php    echo $_SESSION['username']; ?>';
+
+    
+        console.log(userId);
+        console.log(username);
+        
+        // chatMembers =  [    1 , 2  ]
     </script>
 
 </body>
 
 
 <script type="text/javascript">
-    // alert("hello")
-            // console.log('User ID:', userId);
+ 
     const socket = io("http://localhost:8000");
-    // console.log(socket)
+
+ <?php 
+
+// echo 
+         
+ ?>
+  
+
+//  UDPATE 
+
+
+
             
 var empty_load_gps = '<!-- NoGPSConnection -->'+
 '        <div class="text-center pt-5">'+
