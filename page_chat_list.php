@@ -19,7 +19,7 @@ $sql2 = "UPDATE `users` SET `bubble_notfiche_status` = 0 WHERE  user_id = '$user
       //echo $sql2;
 $result2 = $db->query($sql2); 
 
-
+// echo "hello world". $user_id;
 ?>
 
 <!doctype html>
@@ -61,26 +61,26 @@ $result2 = $db->query($sql2);
 
                 <div class="section full">
                     <ul class="listview image-listview media mb-2">
-                            
+<!--                             
+    <li class="bg-gr" onclick="goToChat(1);">
+        <a href="/archivio/page_chat_details.php" class="item">
+            <div class="imageWrapper">
+                <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged rounded w55">
+            </div>
+            <div class="in">
+                <div>
+                    <span class="text-truncate">vitale_89</span>
+                    <div>
+                        <span class="text-truncate text-gr"></span>
+                        <span class="text-muted text-truncate"> preview message</span>
+                    </div>
+                </div>
+                <span class="text-muted">11:30</span>
+            </div>
+        </a>
+    </li>
+    
 
-                        <li class="bg-gr" onclick="goToChat(1);">
-                            <a href="/archivio/page_chat_details.php" class="item">
-                                <div class="imageWrapper">
-                                    <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged rounded w55">
-                                </div>
-                                <div class="in">
-                                    <div>
-                                        <span class="text-truncate">vitale_89</span>
-                                        <div>
-                                            <span class="text-truncate text-gr"></span>
-                                            <span class="text-muted text-truncate"> preview message</span>
-                                        </div>
-                                    </div>
-                                    <span class="text-muted">11:30</span>
-                                </div>
-                            </a>
-                        </li>
-                        
                         <li class="bg-gr" onclick="goToChat(1);">
                             <a href="#" class="item">
                                 <div class="imageWrapper">
@@ -138,7 +138,7 @@ $result2 = $db->query($sql2);
                                     <span class="text-muted">10:30</span>
                                 </div>
                             </a>
-                        </li>
+                        </li> -->
 
                     </ul>
                 </div>
@@ -182,6 +182,49 @@ $result2 = $db->query($sql2);
 
     <script>
         // Trigger welcome notification after 5 seconds
+        var userId = <?php echo  $_SESSION['user_id']; ?>;
+    var username =  '<?php    echo $_SESSION['username']; ?>';
+
+       async function fetchAllChats() {
+
+
+
+          const response = await  fetch(`http://localhost:8000/api/chat/${userId.toString()}`);
+          const data = await response.json()
+
+        //   console.log(data) 
+          if(response.status !==200)return;
+          data.message.forEach(chat=>{
+
+              document.querySelector(".listview").innerHTML+=`
+              
+              <li class="bg-gr" onclick="goToChat(1);">
+              <a href="/spottat/archivio/page_chat_details.php?chat=${chat._id}" class="item">
+              <div class="imageWrapper">
+              <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged rounded w55">
+              </div>
+              <div class="in">
+              <div>
+              <span class="text-truncate">${chat?.users[1]?.username}</span>
+              <div>
+              <span class="text-truncate text-gr"></span>
+              <span class="text-muted text-truncate">${chat?.latestMessage?.text}</span>
+              </div>
+              </div>
+              <span class="text-muted">${chat?.createdAt}</span>
+              </div>
+              </a>
+              </li>
+              
+              `
+              
+            })
+              
+            }
+            fetchAllChats();
+
+
+
         setTimeout(() => {
             notification('notification-welcome', 5000);
         }, 2000);

@@ -1,9 +1,9 @@
 <?php  
+session_start();
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-session_start();
 if(isset($_SESSION['user_id'])){
     include('core/functions.php');
 }
@@ -72,7 +72,7 @@ $result2 = $db->query($sql2);
             Friday, Sep 20, 10:40 AM
         </div>
 
-        <div class="message-item">
+        <!-- <div class="message-item">
             <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="avatar">
             <div class="content">
                 <div class="title">John</div>
@@ -149,7 +149,7 @@ $result2 = $db->query($sql2);
                 </div>
                 <div class="footer">10:40 AM</div>
             </div>
-        </div>
+        </div> -->
         
 
 
@@ -213,7 +213,15 @@ $result2 = $db->query($sql2);
     <script>
 
           const socket = io();
-          console.log("socket")
+          const urlString = window.location.href;
+            const url = new URL(urlString);
+            const queryParams = url.searchParams;
+            const chatId = queryParams.get('chat');
+          var userId = <?php echo  $_SESSION['user_id']; ?>;
+    var username =  '<?php    echo $_SESSION['username']; ?>';
+       
+
+    
 
     document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -221,28 +229,111 @@ $result2 = $db->query($sql2);
                 
     })
 
+    async function fetchAllMessages(){
+
+
+        try {
+                const res = await fetch(`http://localhost:8000/api/message/${chatId}`)
+                const data = await res.json();
+            console.log(data);
+
+                if(res.status===200){
+                    data.message.forEach(msg=>{
+
+
+                    const isMine = userId.toString() === msg.sender?.id?.toString();
+
+
+                        document.querySelector("#appCapsule").innerHTML+=`
+    
+                        <div class="message-item ${isMine ?  "user":""}">
+                 
+                 
+                     ${!isMine ? 
+                    '<img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">':""}  
+
+                        
+            <div class="content">
+                    <div class="bubble">
+                  ${msg.text}
+                </div>
+                <div class="footer">${msg.createdAt}</div>
+            </div>
+        </div>
+
+    
+                        `
+                    })
+                }
+
+        } catch (error) {
+            
+        }
+
+
+
+    }
+    fetchAllMessages()
+
     function scrollToViews(){
         
         const messageContainer = document.querySelector("#appCapsule")
                 messageContainer.scrollTo(0,messageContainer.scrollHeight)
     }
 
-        function handleSubmit(){
+      async  function handleSubmit(){
+
+            const urlString = window.location.href;
+            const url = new URL(urlString);
+            const queryParams = url.searchParams;
+            const chatId = queryParams.get('chat');
+            // alert(chatId);
 
 
 
-          const messageText =  document.querySelector("#message_input").value;
+
+
+            // alert(userId,username)
+            // console.log(username)
+            const user={
+                id:userId.toString(),
+                username,
+                image:"",
+            }
+            const messageText =  document.querySelector("#message_input").value;
+            const newMessage={
+                text:messageText,
+                sender:user,
+                chatId
+            }
+
+            try {
+                
+             const res = await   fetch("http://localhost:8000/api/message/create",{
+                    method:"POST",
+                    body:JSON.stringify(newMessage),
+                    "headers":{
+                        'Content-Type': 'application/json', 
+                    }
+                })
+                if(res.status===200){
+
+                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
+                        <div class="content">
+                            <div class="bubble">
+                            ${messageText}
+                            </div>
+                            <div class="footer">${new Date().toLocaleTimeString()}</div>
+                        </div>
+                    </div>`)
+                    document.querySelector("#message_input").value =""
+                    scrollToViews()
+                }
+            } catch (error) {
+                
+            }
+
         //   alert(messageText);
-        document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
-            <div class="content">
-                <div class="bubble">
-                ${messageText}
-                </div>
-                <div class="footer">${new Date().toLocaleTimeString()}</div>
-            </div>
-        </div>`)
-        document.querySelector("#message_input").value =""
-        scrollToViews()
     }
         // Trigger welcome notification after 5 seconds
 
@@ -256,6 +347,8 @@ $result2 = $db->query($sql2);
 
 
 
+
+</script>
 
     </>
 
