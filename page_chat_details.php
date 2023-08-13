@@ -209,17 +209,34 @@ $result2 = $db->query($sql2);
         include('footer.php');
     ?>
 
-
+<script   src="assets/js/socket.js"></script>
     <script>
 
-          const socket = io();
+    
           const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
             const chatId = queryParams.get('chat');
-          var userId = <?php echo  $_SESSION['user_id']; ?>;
-    var username =  '<?php    echo $_SESSION['username']; ?>';
+            var userId = <?php echo  $_SESSION['user_id']; ?>;
+            var username =  '<?php    echo $_SESSION['username']; ?>';
        
+
+
+            // socket.on("GET_MESSAGE",data=>{
+            //     const {chatId:theChatId,senderId,message} = data;
+            //     if(theChatId == chatId){
+            //         document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item">
+            //             <div class="content">
+            //                 <div class="bubble">
+            //                 ${message.text}
+            //                 </div>
+            //                 <div class="footer">${message.createdAt}</div>
+            //             </div>
+            //         </div>`)
+                   
+            //         scrollToViews()
+            //     }
+            // })
 
     
 
@@ -266,6 +283,8 @@ $result2 = $db->query($sql2);
                     })
                 }
 
+
+                scrollToViews()
         } catch (error) {
             
         }
@@ -328,7 +347,18 @@ $result2 = $db->query($sql2);
                     </div>`)
                     document.querySelector("#message_input").value =""
                     scrollToViews()
+                    const socketPayload = {
+                        message:res.data.message,
+                        senderId:userId,
+                        chatId
+
+
+                    }
+                    socket.emit("SEND_MESSAGE",socketPayload)
                 }
+                
+
+
             } catch (error) {
                 
             }

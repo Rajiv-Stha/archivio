@@ -235,13 +235,22 @@ else{
             float: right!important;
         }
     </style>
+    <script   src="assets/js/socket.js"></script>
+
 
    <script type="text/javascript">
+    console.log(socket)
+
     // alert("hello");
     var userId = <?php echo  $_SESSION['user_id']; ?>;
     var username =  '<?php    echo $_SESSION['username']; ?>';
 
     
+    socket.emit("JOIN",userId);
+    socket.on("GET_USERS",onlineUsers=>{
+        console.log("online users",onlineUsers);
+    });
+  
         console.log(userId);
         console.log(username);
         
@@ -253,13 +262,8 @@ else{
 
 <script type="text/javascript">
  
-    const socket = io("http://localhost:8000");
+   
 
- <?php 
-
-// echo 
-         
- ?>
   
 
 //  UDPATE 

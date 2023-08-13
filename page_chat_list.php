@@ -211,7 +211,7 @@ $result2 = $db->query($sql2);
               <span class="text-muted text-truncate">${chat?.latestMessage?.text}</span>
               </div>
               </div>
-              <span class="text-muted">${chat?.createdAt}</span>
+              <span class="text-muted">${chat?.createdAt.split('T')[0]}</span>
               </div>
               </a>
               </li>
