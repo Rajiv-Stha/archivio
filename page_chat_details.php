@@ -346,15 +346,18 @@ $result2 = $db->query($sql2);
                         </div>
                     </div>`)
                     document.querySelector("#message_input").value =""
-                    scrollToViews()
+                    console.log("sending " ,socket)
+
                     const socketPayload = {
                         message:res.data.message,
                         senderId:userId,
                         chatId
-
-
+                        
+                        
                     }
+                    
                     socket.emit("SEND_MESSAGE",socketPayload)
+                    scrollToViews()
                 }
                 
 
