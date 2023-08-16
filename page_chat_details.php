@@ -206,13 +206,15 @@ $result2 = $db->query($sql2);
 
      <?php
         // Footer Script JS
+        
         include('footer.php');
+        // include('home.php')
     ?>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/timeago.js@4.0.2/dist/timeago.min.js"></script> -->
 
-<script   src="assets/js/socket.js"></script>
     <script>
 
-    
+
           const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
@@ -222,21 +224,29 @@ $result2 = $db->query($sql2);
        
 
 
-            // socket.on("GET_MESSAGE",data=>{
-            //     const {chatId:theChatId,senderId,message} = data;
-            //     if(theChatId == chatId){
-            //         document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item">
-            //             <div class="content">
-            //                 <div class="bubble">
-            //                 ${message.text}
-            //                 </div>
-            //                 <div class="footer">${message.createdAt}</div>
-            //             </div>
-            //         </div>`)
+      
+ 
+
+
+            socket.on("GET_MESSAGE",data=>{
+                console.log("i received message",data)
+
+                const {senderId,message} = data;
+         
+                let msgDate = moment(message.createdAt).format('LT');
+                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item">
+                    <img src=${ "assets/img/sample/avatar/avatar2.jpg"} alt="avatar" class="avatar">
+                        <div class="content">
+                            <div class="bubble">
+                            ${message.text}
+                            </div>
+                            <div class="footer">${msgDate}</div>
+                        </div>
+                    </div>`)
                    
-            //         scrollToViews()
-            //     }
-            // })
+                    scrollToViews()
+         
+            })
 
     
 
@@ -248,14 +258,18 @@ $result2 = $db->query($sql2);
 
     async function fetchAllMessages(){
 
-
+        
+        
         try {
-                const res = await fetch(`http://localhost:8000/api/message/${chatId}`)
-                const data = await res.json();
+            const res = await fetch(`http://localhost:8000/api/message/${chatId}`)
+            const data = await res.json();
             console.log(data);
+            
+            if(res.status===200){
+                // alert("helo")
+                data.message.forEach(msg=>{
+                        let msgDate = moment( new Date(msg.createdAt)).format('LT');
 
-                if(res.status===200){
-                    data.message.forEach(msg=>{
 
 
                     const isMine = userId.toString() === msg.sender?.id?.toString();
@@ -274,14 +288,16 @@ $result2 = $db->query($sql2);
                     <div class="bubble">
                   ${msg.text}
                 </div>
-                <div class="footer">${msg.createdAt}</div>
-            </div>
-        </div>
+                <div class="footer">${msgDate}</div>
+                </div>
+                </div>
+                
+                
+                `
+            })
+        }
+        
 
-    
-                        `
-                    })
-                }
 
 
                 scrollToViews()
@@ -336,27 +352,39 @@ $result2 = $db->query($sql2);
                     }
                 })
                 if(res.status===200){
+                    const data = await res.json()
 
+                    let msgDate = moment(data.message.createdAt).format('LT');
                     document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
+                    
                         <div class="content">
                             <div class="bubble">
                             ${messageText}
                             </div>
-                            <div class="footer">${new Date().toLocaleTimeString()}</div>
+                            <div class="footer">${msgDate}</div>
                         </div>
                     </div>`)
+
                     document.querySelector("#message_input").value =""
-                    console.log("sending " ,socket)
+                    // console.log("sending " ,data.message,userId,chatId)
+                    const receiverId =data.message.chatId.users.find(us=>us.id !== userId.toString())?.id
+
+
+                    // console.log(receiverId,userId)
 
                     const socketPayload = {
-                        message:res.data.message,
-                        senderId:userId,
-                        chatId
+                        message:data.message,
+                        senderId:userId.toString(),
+                        receiverId:receiverId.toString()
+                        
                         
                         
                     }
-                    
+                    console.log(socketPayload)
+
                     socket.emit("SEND_MESSAGE",socketPayload)
+
+                    
                     scrollToViews()
                 }
                 

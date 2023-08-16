@@ -20,3 +20,24 @@
 <script src="<?php echo $path_url;?>/assets/js/zuck.js"></script>
 
 <script src="<?php echo $path_url;?>/assets/js/croppie.js"></script>
+<script   src="assets/js/socket.js"></script>
+
+
+
+<script type="text/javascript">
+   
+//    alert(" i am initialized")
+
+var userId = <?php echo  $_SESSION['user_id']; ?>;
+var username =  '<?php    echo $_SESSION['username']; ?>';
+
+console.log(username)
+
+socket.emit("JOIN",userId.toString());
+
+socket.on("GET_USERS",onlineUsers=>{
+   console.log("online users",onlineUsers);
+});
+
+ 
+</script>
