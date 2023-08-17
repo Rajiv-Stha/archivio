@@ -16,10 +16,12 @@
     <link rel="stylesheet" href="assets/css/croppie.css" />
     <link rel="stylesheet" href="assets/css/zuck.css" />
     <link rel="stylesheet" href="assets/css/snapgram.css" />
+    <link rel="stylesheet" href="assets/css/chat.css">
     <link rel="manifest" href="__manifest.json">
     <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/timeago.js@4.0.2/dist/timeago.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+    <script src="https://kit.fontawesome.com/76aefe53a9.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </head>

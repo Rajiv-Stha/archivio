@@ -287,7 +287,15 @@ $result2 = $db->query($sql2);
             <div class="content">
                     <div class="bubble">
                   ${msg.text}
-                </div>
+                  </div>
+                  <i class="fa-solid fa-ellipsis-vertical" style="color: #adadad;"></i>
+                  <div class="del-popover" > 
+
+                  <button class="deleteButton" id=${msg._id}>
+                  delete 
+                  </button>
+
+                  </div>
                 <div class="footer">${msgDate}</div>
                 </div>
                 </div>
@@ -301,6 +309,8 @@ $result2 = $db->query($sql2);
 
 
                 scrollToViews()
+                addEventToDelBtn()
+                
         } catch (error) {
             
         }
@@ -404,6 +414,30 @@ $result2 = $db->query($sql2);
            sessionStorage.removeItem('latitude');
             sessionStorage.removeItem('longitude');
 
+
+            const addEventToDelBtn=()=>{
+                const allDelBtns = document.querySelectorAll(".deleteButton")
+                allDelBtns.forEach(btn=>{
+                    btn.addEventListener("click",async(event)=>{
+
+                        // console.log(event.currentTarget)
+
+                    const id = event.currentTarget.id;
+                  const messageItem =  event.currentTarget.closest(".message-item");
+                  console.log(event.currentTarget.closest(".message-item"))
+
+                      const res =  await fetch(`http://localhost:8000/api/message/${id}`,{
+                        method:"DELETE",
+                       })
+                       if(res.status===200){
+                        // event.currentTarget.remove();
+                        messageItem.remove()
+
+                       }
+
+                    })
+                })
+            }
 
 
 
