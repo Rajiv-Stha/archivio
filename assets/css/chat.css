@@ -14,4 +14,17 @@
 .content{
     /* background-color: red; */
     position: relative;
+
+}
+
+.message_media{
+    width:200px !important;
+    height:200px !important;
+    border-radius:5px !important;
+    object-fit: cover;
+}
+.bubble{
+    display:flex !important;
+    flex-direction: column !important;
+    gap:5px !important;
 }

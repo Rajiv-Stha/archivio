@@ -210,6 +210,7 @@ $result2 = $db->query($sql2);
                         
             <div class="content">
                     <div class="bubble">
+                    ${msg.type === "image" ? `<img class="message_media" src=${msg.url}> ` :""}
                   ${msg.text}
                   </div>
                   <i class="fa-solid fa-ellipsis-vertical" style="color: #adadad;"></i>
@@ -256,7 +257,8 @@ $result2 = $db->query($sql2);
  
 
         if(mediaFile){
-          fileUrl  =   await   handleUploadFile()
+          fileUrl  =   await   handleUploadFile();
+          fileType = mediaFile.type.split("/")[0];  
         
         }
 
