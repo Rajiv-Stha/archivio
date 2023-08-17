@@ -21,6 +21,7 @@
 
 <script src="<?php echo $path_url;?>/assets/js/croppie.js"></script>
 <script   src="assets/js/socket.js"></script>
+<script src="assets/js/methods.js"></script>
 
 
 

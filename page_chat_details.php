@@ -72,85 +72,7 @@ $result2 = $db->query($sql2);
             Friday, Sep 20, 10:40 AM
         </div>
 
-        <!-- <div class="message-item">
-            <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="avatar">
-            <div class="content">
-                <div class="title">John</div>
-                <div class="bubble">
-                    Hi everyone, how are you?
-                </div>
-                <div class="footer">8:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-item">
-            <img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">
-            <div class="content">
-                <div class="title">Marry</div>
-                <div class="bubble">
-                    I'm fine, how are you today john, do you feel good?
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-item user">
-            <div class="content">
-                <div class="bubble">
-                    Would you please repost the photo you sent yesterday?
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-divider">
-            Friday, Sep 20, 10:40 AM
-        </div>
-
-        <div class="message-item">
-            <img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">
-            <div class="content">
-                <div class="title">Marry</div>
-                <div class="bubble">
-                    <img src="assets/img/sample/photo/1.jpg" alt="photo" class="imaged w160">
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-item">
-            <img src="assets/img/sample/avatar/avatar4.jpg" alt="avatar" class="avatar">
-            <div class="content">
-                <div class="title">Katie</div>
-                <div class="bubble">
-                    Nice photo !
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-item">
-            <img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">
-            <div class="content">
-                <div class="title">Marry</div>
-                <div class="bubble">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae nisl et nibh iaculis
-                    sagittis. In hac habitasse platea dictumst. Sed eu massa lacinia, interdum ex et, sollicitudin elit.
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div>
-
-        <div class="message-item user">
-            <div class="content">
-                <div class="bubble">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vitae nisl et nibh iaculis
-                    sagittis. In hac habitasse platea dictumst. Sed eu massa lacinia, interdum ex et, sollicitudin elit.
-                </div>
-                <div class="footer">10:40 AM</div>
-            </div>
-        </div> -->
-        
+    
 
 
 
@@ -161,7 +83,8 @@ $result2 = $db->query($sql2);
 
     <div class="chatFooter" style="z-index: 99999999999999999">
         <form>
-            <a href="#" class="btn btn-icon btn-secondary rounded" data-bs-toggle="offcanvas" data-bs-target="#actionSheetAdd">
+            <input onChange="handleFileInputChange(event)" type="file" name="" id="file_input" style="display:none;">
+            <a onClick="handleMedia()" href="#" class="btn btn-icon btn-secondary rounded" data-bs-toggle="offcanvas" data-bs-target="#actionSheetAdd">
                 <i class="bi bi-plus"></i>
             </a>
             <div class="form-group boxed">
@@ -214,7 +137,8 @@ $result2 = $db->query($sql2);
 
     <script>
 
-
+        let mediaFile = null;
+        let fileType = null;
           const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
@@ -328,18 +252,23 @@ $result2 = $db->query($sql2);
 
       async  function handleSubmit(){
 
+        let fileUrl;
+ 
+
+        if(mediaFile){
+          fileUrl  =   await   handleUploadFile()
+        
+        }
+
+
+
+            
+
             const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
             const chatId = queryParams.get('chat');
-            // alert(chatId);
 
-
-
-
-
-            // alert(userId,username)
-            // console.log(username)
             const user={
                 id:userId.toString(),
                 username,
@@ -349,7 +278,9 @@ $result2 = $db->query($sql2);
             const newMessage={
                 text:messageText,
                 sender:user,
-                chatId
+                chatId,
+                type:fileType ??  "text",
+                url:fileUrl
             }
 
             try {
@@ -406,11 +337,52 @@ $result2 = $db->query($sql2);
 
         //   alert(messageText);
     }
-        // Trigger welcome notification after 5 seconds
 
-        // setTimeout(() => {
-        //     notification('notification-welcome', 5000);
-        // }, 2000);
+
+    async function handleUploadFile(){
+
+
+        if(!mediaFile)return;
+    
+        const {url:imageUrl} =await  uploadFile(mediaFile,(progress,url)=>{
+    
+                console.log(progress,url)
+    
+          
+        })
+
+
+        return  imageUrl;
+
+
+    }
+
+
+     function  handleMedia(){
+        document.querySelector("#file_input").click();
+    }
+
+    async function handleFileInputChange(event){
+            if(event.target.files[0]){
+
+                mediaFile = event.target.files[0];
+                let fileType = mediaFile.type.split("/")[0];
+              
+
+                if(fileType === "image" || fileType === "video"){
+                    
+                }else{
+                    mediaFile=null;
+                    fileType= null;
+                    alert("unsupported media format")
+                    return ;
+                }
+            }
+
+    }
+       
+
+
            sessionStorage.removeItem('latitude');
             sessionStorage.removeItem('longitude');
 
