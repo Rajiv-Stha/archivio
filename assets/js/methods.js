@@ -1,5 +1,5 @@
 const cloudName ="onlinecoder"
-const presetKey="imgVariation"
+const presetKey="imgVariation/image/upload"
 
 
 const uploadFile=async(file,cb)=>{
@@ -11,7 +11,8 @@ const uploadFile=async(file,cb)=>{
     const res = await  axios.post(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`,formData,{
         
         headers:{
-            "Content-Type":"multipart/form-data"
+            "Content-Type":"multipart/form-data",
+            
         },
         onUploadProgress:(e)=>{
 

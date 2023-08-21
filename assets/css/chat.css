@@ -1,9 +1,10 @@
 .del-popover{
-    background-color: red;
+
+    display: none !important;
     position: absolute;
     top: -1rem;;
     right: -3rem;;
-    background-color: rgb(179, 179, 179);
+    background-color: rgb(255, 0, 0);
     padding: 5px;;
     border-radius: 10px;
     
@@ -12,7 +13,7 @@
 }
 
 .content{
-    /* background-color: red; */
+   
     position: relative;
 
 }
@@ -27,4 +28,8 @@
     display:flex !important;
     flex-direction: column !important;
     gap:5px !important;
+}
+.content_top{
+    display:flex !important;
+    align-items: center !important;
 }

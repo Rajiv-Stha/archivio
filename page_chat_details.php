@@ -51,7 +51,7 @@ $result2 = $db->query($sql2);
                 <i class="bi bi-chevron-left"></i>
             </a>
         </div>
-        <div class="pageTitle">vitale_89</div>
+        <div class="pageTitle"></div>
         <div class="right">
             <a href="#" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#DialogChatOptions">
                 <i class="bi bi-three-dots-vertical" style="color: #FFFFFF;"></i>
@@ -148,7 +148,8 @@ $result2 = $db->query($sql2);
        
 
 
-      
+        console.log(username)
+        
  
 
 
@@ -208,19 +209,17 @@ $result2 = $db->query($sql2);
                     '<img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">':""}  
 
                         
-            <div class="content">
+            <div class="content" >
+
+
+                <div class="content_top"  id=${msg._id} style="display:flex;gap:1rem;align-items:center;">
                     <div class="bubble">
-                    ${msg.type === "image" ? `<img class="message_media" src=${msg.url}> ` :""}
+                    ${msg.type === "image" ? `<img class="message_media" src=${msg.url} alt="media"> ` :""}
                   ${msg.text}
                   </div>
                   <i class="fa-solid fa-ellipsis-vertical" style="color: #adadad;"></i>
-                  <div class="del-popover" > 
-
-                  <button class="deleteButton" id=${msg._id}>
-                  delete 
-                  </button>
-
                   </div>
+               
                 <div class="footer">${msgDate}</div>
                 </div>
                 </div>
@@ -244,6 +243,30 @@ $result2 = $db->query($sql2);
 
     }
     fetchAllMessages()
+
+
+    async function fetchChatFromDB(){
+
+
+        const res =  await  fetch(`http://localhost:8000/api/chat/byChatId/${chatId}`)
+        const data = await res.json();
+
+
+
+        const users = data.message.users; 
+        const nextUser = users.find(usr=>usr.id !== userId.toString()).username;
+
+        console.log(nextUser)
+
+
+        document.querySelector(".pageTitle").innerText = nextUser
+
+
+
+
+
+    }
+        fetchChatFromDB();
 
     function scrollToViews(){
         
@@ -301,7 +324,11 @@ $result2 = $db->query($sql2);
                     document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
                     
                         <div class="content">
-                            <div class="bubble">
+                                <div class="bubble">
+                    ${data.message.type === "image" ? `<img class="message_media" src=${data.message.url} alt="media"> ` :""}
+                  
+   
+
                             ${messageText}
                             </div>
                             <div class="footer">${msgDate}</div>
@@ -343,6 +370,7 @@ $result2 = $db->query($sql2);
 
     async function handleUploadFile(){
 
+        console.log("file",mediaFile)
 
         if(!mediaFile)return;
     
@@ -390,32 +418,68 @@ $result2 = $db->query($sql2);
 
 
             const addEventToDelBtn=()=>{
-                const allDelBtns = document.querySelectorAll(".deleteButton")
-                allDelBtns.forEach(btn=>{
-                    btn.addEventListener("click",async(event)=>{
 
-                        // console.log(event.currentTarget)
 
-                    const id = event.currentTarget.id;
-                  const messageItem =  event.currentTarget.closest(".message-item");
-                  console.log(event.currentTarget.closest(".message-item"))
+                const otherButtons = document.querySelectorAll('.fa-ellipsis-vertical')         
 
-                      const res =  await fetch(`http://localhost:8000/api/message/${id}`,{
-                        method:"DELETE",
-                       })
-                       if(res.status===200){
-                        // event.currentTarget.remove();
-                        messageItem.remove()
+                otherButtons.forEach(btn=>{
+                    btn.addEventListener("click",e=>{
+                        console.log("clicked")
+                    const content =  e.currentTarget.closest(".content_top");
+                    content.insertAdjacentHTML("beforeEnd",`
+                      <div class="del-popover" id=${content.id}  > 
 
-                       }
 
+                  <button class="deleteButton" onclick="handleDelEvent(event)" >
+                  delete 
+                  </button>
+
+                  </div>
+                    `)
                     })
                 })
+
+
+
+
+
+
             }
 
 
 
 
+
+            const handleDelEvent=async(e)=>{
+
+
+                
+                
+                
+                e.currentTarget.closest(".message-item").remove()
+                
+                const id =   e.currentTarget.closest(".del-popover").id
+                
+                try {
+                    
+                    
+                    const res =  await fetch(`http://localhost:8000/api/message/${id}`,{
+                        method:"DELETE",
+                    })
+                    
+                    // console.log(e.currentTarget.closest(".message-item"))
+                    // e.currentTarget.closest(".message-item").remove();
+                    
+                    if(res.status===200){
+
+                        
+                    }
+                } catch (error) {
+                    
+                }
+
+          
+            }
 
 </script>
 
