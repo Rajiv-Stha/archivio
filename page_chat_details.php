@@ -162,10 +162,16 @@ $result2 = $db->query($sql2);
                 console.log("i received message",data);
 
                 const {senderId,message} = data;
+                const senderImg  = message.sender.image.charAt(0)=== "/" ? message.sender.image.substring(1) :message.sender.image;
          
                 let msgDate = moment(message.createdAt).format('LT');
-                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
-                    
+                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item ">
+
+                          
+                    <img src=${senderImg } alt="avatar" class="avatar"> 
+
+    
+
                         <div class="content">
                                 <div class="bubble">
                     ${message.type === "image" ? `<img class="message_media" src=${message.url} alt="media"> ` :""}
@@ -206,11 +212,13 @@ $result2 = $db->query($sql2);
             if(res.status===200){
                 // alert("helo")
                 data.message.forEach(msg=>{
-                        let msgDate = moment( new Date(msg.createdAt)).format('LT');
 
 
 
+                    let msgDate = moment( new Date(msg.createdAt)).format('LT');
                     const isMine = userId.toString() === msg.sender?.id?.toString();
+                    const senderImg  = msg.sender.image.charAt(0)=== "/" ? msg.sender.image.substring(1) :msg.sender.image;
+         
 
 
                         document.querySelector("#appCapsule").innerHTML+=`
@@ -219,7 +227,7 @@ $result2 = $db->query($sql2);
                  
                  
                      ${!isMine ? 
-                    `<img src=${msg.sender?.image} alt="avatar" class="avatar">`:""}  
+                    `<img src=${senderImg} alt="avatar" class="avatar">`:""}  
 
 
                         
