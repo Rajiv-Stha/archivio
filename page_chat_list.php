@@ -185,6 +185,9 @@ $result2 = $db->query($sql2);
         var userId = <?php echo  $_SESSION['user_id']; ?>;
     var username =  '<?php    echo $_SESSION['username']; ?>';
 
+    const getNextUser =(users)=>{
+        return users.find(user=>user.id !== userId.toString() )
+    }
        async function fetchAllChats() {
 
 
@@ -195,7 +198,7 @@ $result2 = $db->query($sql2);
         //   console.log(data) 
           if(response.status !==200)return;
           data.message.forEach(chat=>{
-
+ 
               document.querySelector(".listview").innerHTML+=`
               
               <li class="bg-gr" onclick="goToChat(1);">
@@ -205,13 +208,13 @@ $result2 = $db->query($sql2);
               </div>
               <div class="in">
               <div>
-              <span class="text-truncate">${chat?.users[1]?.username}</span>
+              <span class="text-truncate">${getNextUser(chat.users).username}</span>
               <div>
               <span class="text-truncate text-gr"></span>
               <span class="text-muted text-truncate">${chat?.latestMessage?.text ?? ""}</span>
               </div>
               </div>
-              <span class="text-muted">${chat?.createdAt.split('T')[0]}</span>
+              <span class="text-muted">${    moment(chat.updatedAt).format('LT')}</span>
               </div>
               </a>
               </li>

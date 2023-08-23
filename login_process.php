@@ -58,8 +58,19 @@ if(isset($_POST['login_form'])){
                 $_SESSION['user_id'] = $rowdata['user_id'];
                 $_SESSION['username'] = $rowdata['username'];
                 
-                //O = ADMIN
-                //1 = USER       
+                if($profile_img != 0){
+                $fileNameImg = getImageByID($profile_img);
+
+                    $user_profile_img = "/uploads/users/".$fileNameImg;
+
+                }else{
+                    //default image
+                    $user_profile_img = "/assets/img/sample/avatar/avatar3.jpg";
+                }
+                $_SESSION['user_profile_img'] = $user_profile_img;
+
+
+     
 
                 header('location: home.php');   
             
@@ -200,6 +211,31 @@ if(isset($_REQUEST['delete'])){
 
 
 //header('location: users.php?msg='.$msg);
+function getImageByID($imgID){
+    $user_id = $_SESSION['user_id'];
+    $db = new Db();
+    $resArr = 0;
 
+     //controllo se impostata l'immagine
+            $sql1="SELECT images_file from images where images_id = '$imgID';"; //confermate
+
+            //echo $sql1;
+            $result1 = $db->query($sql1); 
+                if (mysqli_num_rows($result1) > 0) {
+                     while($rowdata = $result1->fetch_assoc()){
+                        $resArr = $rowdata['images_file'];
+                    }
+
+                }else{
+
+                    $resArr = 0; //no image
+                    
+
+                }
+
+             return $resArr;
+
+
+}
 
 ?>

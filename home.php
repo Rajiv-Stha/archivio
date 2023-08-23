@@ -5,7 +5,6 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-echo $_SESSION["user_id"];
 
 // echo $_SESSION["username"];
 
@@ -21,20 +20,20 @@ $userId = null;
 
 if (isset($_REQUEST['uid']) && isset($_REQUEST['uc'])) {
   // Cast variables to float 
-
-
-    // but 
-
-    $_SESSION['valid'] = true;
-    $_SESSION['user_id'] = $_REQUEST['uid'];
-    $userId = $_SESSION['user_id'];
-    // echo $userId;
-           
+  
+  
+  // but 
+  
+  $_SESSION['valid'] = true;
+  $_SESSION['user_id'] = $_REQUEST['uid'];
+  $userId = $_SESSION['user_id'];
+  // echo $userId;
+  
 }else{
-
-
-        //header('location: login.php');
-
+    
+    
+    //header('location: login.php');
+    
 }
 
 

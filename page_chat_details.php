@@ -46,7 +46,7 @@ $result2 = $db->query($sql2);
 
     <!-- App Header -->
     <div class="appHeader bg-primary text-light">
-        <div class="left">
+        <div class="left" onclick="handleGetBack()">
             <a href="#" class="headerButton goBack">
                 <i class="bi bi-chevron-left"></i>
             </a>
@@ -145,24 +145,28 @@ $result2 = $db->query($sql2);
             const chatId = queryParams.get('chat');
             var userId = <?php echo  $_SESSION['user_id']; ?>;
             var username =  '<?php    echo $_SESSION['username']; ?>';
-       
+            const profileImg = '<?php   echo $_SESSION['user_profile_img']; ?>' 
 
 
-        console.log(username)
+  
         
  
 
 
             socket.on("GET_MESSAGE",data=>{
-                console.log("i received message",data)
+                console.log("i received message",data);
 
                 const {senderId,message} = data;
          
                 let msgDate = moment(message.createdAt).format('LT');
-                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item">
-                    <img src=${ "assets/img/sample/avatar/avatar2.jpg"} alt="avatar" class="avatar">
+                    document.querySelector("#appCapsule").insertAdjacentHTML("beforeEnd",`<div class="message-item user">
+                    
                         <div class="content">
-                            <div class="bubble">
+                                <div class="bubble">
+                    ${message.type === "image" ? `<img class="message_media" src=${message.url} alt="media"> ` :""}
+                  
+   
+
                             ${message.text}
                             </div>
                             <div class="footer">${msgDate}</div>
@@ -180,6 +184,10 @@ $result2 = $db->query($sql2);
             scrollToViews()
                 
     })
+
+    const handleGetBack=()=>{
+        history.back();
+    }
 
     async function fetchAllMessages(){
 
