@@ -32,9 +32,9 @@ $result2 = $db->query($sql2);
 <body>
 
     <!-- loader -->
-    <!-- <div id="loader">
+    <div id="loader" style="display:flex;">
         <div class="spinner-border text-gr" role="status"></div>
-    </div> -->
+    </div>
     <!-- * loader -->
 
     <!-- App Header -->
@@ -188,8 +188,58 @@ $result2 = $db->query($sql2);
     const getNextUser =(users)=>{
         return users.find(user=>user.id !== userId.toString() )
     }
-       async function fetchAllChats() {
+      
 
+     function getOnlineUsers(cb){
+        socket.emit("REQUEST_USERS");
+        socket.on("RESPONSE_USERS",users=>{
+        cb(users)
+        })
+    }
+
+
+
+    function ifUserIsActive(onlineUsers,userId){
+        console.log(userId)
+        return onlineUsers.find(act=>act.userId === userId.toString())
+    }
+    
+
+
+
+    function DisplayOnlineStatus(){
+
+        const chatItems = document.querySelectorAll(".chat_item")
+
+
+        
+        getOnlineUsers((activeUsers)=>{
+            
+            chatItems.forEach(item => {
+                
+                const senderId = item.getAttribute("data-senderId");
+
+                 const isActive =  activeUsers.some(user=>user.userId === senderId)
+                 console.log("sender",isActive)
+                 if(isActive){
+                    item.querySelector(".active_dot").style.display = "block";
+                 }
+
+                 
+                
+                    
+
+                    
+                });
+
+
+        })
+
+
+    }
+
+
+    async function fetchAllChats() {
 
 
           const response = await  fetch(`http://localhost:8000/api/chat/${userId.toString()}`);
@@ -197,18 +247,25 @@ $result2 = $db->query($sql2);
 
         //   console.log(data) 
           if(response.status !==200)return;
+
+
+
+
           data.message.forEach(chat=>{
- 
+            const nextUserData = getNextUser(chat.users);
+             
+
               document.querySelector(".listview").innerHTML+=`
               
-              <li class="bg-gr" onclick="goToChat(1);">
+              <li  data-senderId=${nextUserData.id}  class="bg-gr chat_item" onclick="goToChat(1);">
               <a href="/spottat/archivio/page_chat_details.php?chat=${chat._id}" class="item">
-              <div class="imageWrapper">
+              <div class="imageWrapper" style="position:relative;">
               <img src="assets/img/sample/photo/1.jpg" alt="image" class="imaged rounded w55">
+              <div  class="active_dot" style="position:absolute; display:none; bottom:10px; right:0px;width:10px;height:10px;background:#37e710;border-radius:50%;"></div>
               </div>
               <div class="in">
               <div>
-              <span class="text-truncate">${getNextUser(chat.users).username}</span>
+              <span class="text-truncate">${nextUserData.username}</span>
               <div>
               <span class="text-truncate text-gr"></span>
               <span class="text-muted text-truncate">${chat?.latestMessage?.text ?? ""}</span>
@@ -222,18 +279,25 @@ $result2 = $db->query($sql2);
               `
               
             })
-              
+            console.log("displayed")
+            document.querySelector("#loader").style.display="none"
+            DisplayOnlineStatus()
             }
+
+
             fetchAllChats();
 
 
 
-        setTimeout(() => {
-            notification('notification-welcome', 5000);
-        }, 2000);
+        // setTimeout(() => {
+        //     notification('notification-welcome', 5000);
+        // }, 2000);
            sessionStorage.removeItem('latitude');
             sessionStorage.removeItem('longitude');
-    </script>
+  
+  
+  
+  </script>
 
 </body>
 

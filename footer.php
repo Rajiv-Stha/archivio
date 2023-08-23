@@ -31,13 +31,14 @@
 
 var userId = <?php echo  $_SESSION['user_id']; ?>;
 var username =  '<?php    echo $_SESSION['username']; ?>';
+let onlineUsers =[]
 
-console.log(username)
 
 socket.emit("JOIN",userId.toString());
 
 socket.on("GET_USERS",onlineUsers=>{
    console.log("online users",onlineUsers);
+   onlineUsers = onlineUsers;
 });
 
 // document.addEventListener('DOMContentLoaded', function () {

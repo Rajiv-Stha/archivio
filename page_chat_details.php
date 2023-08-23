@@ -39,9 +39,9 @@ $result2 = $db->query($sql2);
 <body>
 
     <!-- loader -->
-    <!-- <div id="loader">
+    <div id="loader">
         <div class="spinner-border text-gr" role="status"></div>
-    </div> -->
+    </div>
     <!-- * loader -->
 
     <!-- App Header -->
@@ -51,7 +51,12 @@ $result2 = $db->query($sql2);
                 <i class="bi bi-chevron-left"></i>
             </a>
         </div>
-        <div class="pageTitle"></div>
+        <div class="pageTitle" style="display:flex;flex-direction:column;align-items:center;">
+            <div class="userTitle" style="letter-spacing:1px;">
+
+            </div>
+            <span style="font-weight:500;font-size:11px;letter-spacing:1px;">Active Now</span>
+        </div>
         <div class="right">
             <a href="#" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#DialogChatOptions">
                 <i class="bi bi-three-dots-vertical" style="color: #FFFFFF;"></i>
@@ -214,7 +219,8 @@ $result2 = $db->query($sql2);
                  
                  
                      ${!isMine ? 
-                    '<img src="assets/img/sample/avatar/avatar2.jpg" alt="avatar" class="avatar">':""}  
+                    `<img src=${msg.sender?.image} alt="avatar" class="avatar">`:""}  
+
 
                         
             <div class="content" >
@@ -242,6 +248,7 @@ $result2 = $db->query($sql2);
 
                 scrollToViews()
                 addEventToDelBtn()
+         document.querySelector("#loader").style.display="none"
                 
         } catch (error) {
             
@@ -264,10 +271,9 @@ $result2 = $db->query($sql2);
         const users = data.message.users; 
         const nextUser = users.find(usr=>usr.id !== userId.toString()).username;
 
-        console.log(nextUser)
+      
 
-
-        document.querySelector(".pageTitle").innerText = nextUser
+        document.querySelector(".userTitle").innerText = nextUser;
 
 
 
@@ -305,7 +311,7 @@ $result2 = $db->query($sql2);
             const user={
                 id:userId.toString(),
                 username,
-                image:"",
+                image:profileImg,
             }
             const messageText =  document.querySelector("#message_input").value;
             const newMessage={

@@ -33,3 +33,10 @@
     display:flex !important;
     align-items: center !important;
 }
+
+
+.active_dot{
+    width: 10px !important;
+    height: 10px !important;
+    background-color: #37e710  !important;
+}
