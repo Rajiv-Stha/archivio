@@ -55,7 +55,7 @@ $result2 = $db->query($sql2);
             <div class="userTitle" style="letter-spacing:1px;">
 
             </div>
-            <span style="font-weight:500;font-size:11px;letter-spacing:1px;">Active Now</span>
+            <span class="active_text" style="display:none;font-weight:500;font-size:11px;letter-spacing:1px;">Active Now</span>
         </div>
         <div class="right">
             <a href="#" class="btn btn-icon" data-bs-toggle="modal" data-bs-target="#DialogChatOptions">
@@ -269,11 +269,13 @@ $result2 = $db->query($sql2);
 
 
         const users = data.message.users; 
-        const nextUser = users.find(usr=>usr.id !== userId.toString()).username;
+        const nextUser = users.find(usr=>usr.id !== userId.toString());
 
       
 
-        document.querySelector(".userTitle").innerText = nextUser;
+        document.querySelector(".userTitle").innerText = nextUser.username;
+        
+        setOnlineStatus(nextUser.id?.toString())
 
 
 
@@ -281,6 +283,27 @@ $result2 = $db->query($sql2);
 
     }
         fetchChatFromDB();
+
+
+        function getOnlineUsers(cb){
+           socket.emit("REQUEST_USERS");
+           socket.on("RESPONSE_USERS",users=>{
+           cb(users)
+           })
+       }
+
+    function setOnlineStatus(userId){
+        getOnlineUsers((users)=>{
+
+
+            const isActive = users.some(user=>user.userId === userId)
+            if(isActive){
+                    document.querySelector(".active_text").style.display="block";
+            }
+        })
+    }    
+
+
 
     function scrollToViews(){
         
