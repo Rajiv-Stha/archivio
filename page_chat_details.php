@@ -147,7 +147,8 @@ $result2 = $db->query($sql2);
           const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
-            const chatId = queryParams.get('chat');
+            let  chatId = queryParams.get('chat');
+            const chatUserId = queryParams.get('userId');
             var userId = <?php echo  $_SESSION['user_id']; ?>;
             var username =  '<?php    echo $_SESSION['username']; ?>';
             const profileImg = '<?php   echo $_SESSION['user_profile_img']; ?>' 
@@ -189,6 +190,7 @@ $result2 = $db->query($sql2);
             })
 
     
+            fetchChatBetweenTwoUsers();
 
     document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -201,8 +203,7 @@ $result2 = $db->query($sql2);
     }
 
     async function fetchAllMessages(){
-
-        
+   
         
         try {
             const res = await fetch(`http://localhost:8000/api/message/${chatId}`)
@@ -265,8 +266,25 @@ $result2 = $db->query($sql2);
 
 
     }
-    fetchAllMessages()
 
+    async function fetchChatBetweenTwoUsers(){
+
+        
+
+        try {
+            const res = await fetch(`http://localhost:8000/api/chat/byUsersId/${chatUserId}/${userId}`)
+            const data = await res.json();
+
+            if(res.status===200){
+
+                chatId = data.message._id;
+                console.log(chatId);
+            }
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     async function fetchChatFromDB(){
 
@@ -290,10 +308,8 @@ $result2 = $db->query($sql2);
 
 
     }
-        fetchChatFromDB();
 
-
-        function getOnlineUsers(cb){
+    function getOnlineUsers(cb){
            socket.emit("REQUEST_USERS");
            socket.on("RESPONSE_USERS",users=>{
            cb(users)
