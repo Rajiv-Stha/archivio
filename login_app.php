@@ -45,7 +45,7 @@ if(isset($_REQUEST['logout'])){
     $username = trim($username);
     $pass = trim($pass);
 
-
+    
     $sql = "SELECT * FROM `users` WHERE  ((`username` = '$username') or ( `email` = '$username' )) AND `password` = '$pass'";
 
     //echo $sql;

@@ -12,6 +12,11 @@ else{
 }
 
 
+$nextUsername = null;
+$nextImage =null;
+
+
+
 
 
 $user_id = $_SESSION['user_id'];
@@ -21,6 +26,9 @@ $sql2 = "UPDATE `users` SET `bubble_notfiche_status` = 0 WHERE  user_id = '$user
       //echo $sql2;
 $result2 = $db->query($sql2); 
 
+
+
+     
 
 ?>
 
@@ -34,6 +42,7 @@ $result2 = $db->query($sql2);
 
 <?php
     include 'header.php';
+
 ?>
 
 <body>
@@ -148,6 +157,7 @@ $result2 = $db->query($sql2);
             const url = new URL(urlString);
             const queryParams = url.searchParams;
             let  chatId = queryParams.get('chat');
+            console.log("initial",chatId)
             const chatUserId = queryParams.get('userId');
             var userId = <?php echo  $_SESSION['user_id']; ?>;
             var username =  '<?php    echo $_SESSION['username']; ?>';
@@ -155,11 +165,16 @@ $result2 = $db->query($sql2);
 
 
   
-        
+            if(chatId){
+            fetchChatFromDB();
+
+            }else{   
+                fetchChatBetweenTwoUsers();
+            }
  
 
 
-            socket.on("GET_MESSAGE",data=>{
+    socket.on("GET_MESSAGE",data=>{
                 console.log("i received message",data);
 
                 const {senderId,message} = data;
@@ -190,7 +205,6 @@ $result2 = $db->query($sql2);
             })
 
     
-            fetchChatBetweenTwoUsers();
 
     document.addEventListener('DOMContentLoaded', ()=>{
 
@@ -208,7 +222,7 @@ $result2 = $db->query($sql2);
         try {
             const res = await fetch(`http://localhost:8000/api/message/${chatId}`)
             const data = await res.json();
-            console.log(data);
+            console.log("message fetched ",data);
             
             if(res.status===200){
                 // alert("helo")
@@ -218,7 +232,7 @@ $result2 = $db->query($sql2);
 
                     let msgDate = moment( new Date(msg.createdAt)).format('LT');
                     const isMine = userId.toString() === msg.sender?.id?.toString();
-                    const senderImg  = msg.sender.image.charAt(0)=== "/" ? msg.sender.image.substring(1) :msg.sender.image;
+                    const senderImg  = msg.sender.image?.charAt(0)=== "/" ? msg.sender.image?.substring(1) :msg.sender?.image;
          
 
 
@@ -254,13 +268,13 @@ $result2 = $db->query($sql2);
         
 
 
-
-                scrollToViews()
-                addEventToDelBtn()
-         document.querySelector("#loader").style.display="none"
+        
+        scrollToViews()
+        addEventToDelBtn()
+        document.querySelector("#loader").style.display="none"
                 
         } catch (error) {
-            
+            console.log(error)    
         }
 
 
@@ -275,18 +289,42 @@ $result2 = $db->query($sql2);
             const res = await fetch(`http://localhost:8000/api/chat/byUsersId/${chatUserId}/${userId}`)
             const data = await res.json();
 
-            if(res.status===200){
+          
 
-                chatId = data.message._id;
-                console.log(chatId);
+
+
+            if(res.status===200){
+                if(data.message){
+                    chatId = data.message._id;
+                }else{
+                    chatId = 0;
+                }
             }
+
+
+            if(chatId){
+            fetchChatFromDB()
+            }else{
+             document.querySelector("#loader").style.display="none"
+                
+            }
+
+
+            console.log(chatId)
+
+
 
         } catch (error) {
             console.log(error)
         }
     }
 
+
+
+
     async function fetchChatFromDB(){
+
+        console.log('fetching chath ',chatId)
 
 
         const res =  await  fetch(`http://localhost:8000/api/chat/byChatId/${chatId}`)
@@ -302,6 +340,7 @@ $result2 = $db->query($sql2);
         document.querySelector(".userTitle").innerText = nextUser.username;
         
         setOnlineStatus(nextUser.id?.toString())
+        fetchAllMessages()
 
 
 
@@ -353,7 +392,7 @@ $result2 = $db->query($sql2);
             const urlString = window.location.href;
             const url = new URL(urlString);
             const queryParams = url.searchParams;
-            const chatId = queryParams.get('chat');
+          
 
             const user={
                 id:userId.toString(),
@@ -361,23 +400,38 @@ $result2 = $db->query($sql2);
                 image:profileImg,
             }
             const messageText =  document.querySelector("#message_input").value;
-            const newMessage={
+         
+
+            try {
+                let res ;
+
+                console.log(chatId);
+
+
+                if(chatId){
+                const newMessage={
                 text:messageText,
                 sender:user,
                 chatId,
                 type:fileType ??  "text",
                 url:fileUrl
-            }
-
-            try {
-                
-             const res = await   fetch("http://localhost:8000/api/message/create",{
-                    method:"POST",
-                    body:JSON.stringify(newMessage),
-                    "headers":{
-                        'Content-Type': 'application/json', 
                     }
-                })
+
+
+                     res = await   fetch("http://localhost:8000/api/message/create",{
+                        method:"POST",
+                        body:JSON.stringify(newMessage),
+                        "headers":{
+                            'Content-Type': 'application/json', 
+                        }
+                    })
+                }else{
+
+
+                    return;
+
+
+                }
                 if(res.status===200){
                     const data = await res.json()
 
@@ -422,7 +476,7 @@ $result2 = $db->query($sql2);
 
 
             } catch (error) {
-                
+                console.log(error) 
             }
 
         //   alert(messageText);
@@ -453,6 +507,7 @@ $result2 = $db->query($sql2);
         document.querySelector("#file_input").click();
     }
 
+
     async function handleFileInputChange(event){
             if(event.target.files[0]){
 
@@ -471,14 +526,55 @@ $result2 = $db->query($sql2);
             }
 
     }
+
+            fetchUserDataFromSqlDb()
+
+     async function fetchUserDataFromSqlDb(){
+        
+        <?php 
+        $user_id =3;
+        
+            
+    $sql3 = "SELECT * FROM `users` WHERE `user_id` = '$user_id'";
+    $result3 = $db->query($sql3);
+
+     if ($result3) {
+        $user3 = $result3->fetch_assoc();
+
+        if ($user3) {
+
+         
+         $nextUsername=  $user3['username'] ;
+        $nextImage  =  $user3['img'] ;
+
+        
+     
+         
+        } else {
+            echo "User with ID $user_id not found.";
+        }
+
+        // Free the result set
+        $result3->free();
+    }
+            
+            ?>
+
+
+  let nextUser=   '<?php  echo $nextUsername;    ?>';
+    alert(nextUser);
+   
+
+     }
        
 
 
-           sessionStorage.removeItem('latitude');
-            sessionStorage.removeItem('longitude');
+        //    sessionStorage.removeItem('latitude');
+        //    sessionStorage.removeItem('longitude');
 
 
-            const addEventToDelBtn=()=>{
+
+const addEventToDelBtn=()=>{
 
 
                 const otherButtons = document.querySelectorAll('.fa-ellipsis-vertical')         
@@ -511,7 +607,7 @@ $result2 = $db->query($sql2);
 
 
 
-            const handleDelEvent=async(e)=>{
+ const handleDelEvent=async(e)=>{
 
 
                 
@@ -541,6 +637,9 @@ $result2 = $db->query($sql2);
 
           
             }
+
+
+
 
 </script>
 
